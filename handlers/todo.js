@@ -7,17 +7,17 @@ todo.renderPage = (request, h) => h.file('./form.html');
 
 todo.add = (request) => {
   const { text } = request.payload;
-  db.addTodo(text);
+  return db.addTodo(text);
 };
 
 todo.getTodos = () => db.getTodos();
 
 todo.update = (request) => {
   const { id, value } = request.payload;
-  db.update(id, value);
+  return db.update(id, value);
 };
 
 todo.delete = (request) => {
   const { id } = request.payload;
-  db.delete(id);
+  return db.delete(id);
 };

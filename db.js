@@ -21,7 +21,6 @@ Database.getTodos = () => new Promise((resolve, reject) => {
 Database.addTodo = (value) => {
   return new Promise((resolve, reject) => {
     client.query(`insert into listoftodos (todo, active) values('${value}', 1)`, (err, res) => {
-      console.log('here')
       if (err) return reject(err);
       return resolve(res);
     })
@@ -29,17 +28,23 @@ Database.addTodo = (value) => {
 };
 
 Database.update = (id, value) => {
-  client.query(`update listoftodos set todo='${value}' where id=${id}`, (err, res) => {
-    if (err) throw err;
+  return new Promise((resolve, reject) => {
+    client.query(`update listoftodos set todo='${value}' where id=${id}`, (err, res) => {
+      if (err) return reject(err);
+      return resolve(res);
+    })
   })
 };
 
 Database.delete = (id) => {
   //client.query(`delete from listoftodos where id=${id}`, (err, res) => { // if we want to delete todo
   //change active to 0
-  client.query(`update listoftodos set active=0 where id=${id}`, (err, res) => {
-    if (err) throw err;
-  });
+  return new Promise((resolve, reject) => {
+    client.query(`update listoftodos set active=0 where id=${id}`, (err, res) => {
+      if (err) return reject(err);
+      return resolve(res);
+    });
+  })
 };
 
 module.exports = Database;
