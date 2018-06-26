@@ -3,87 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Todo List</title>
+
   </head>
   <body>
     <div id="root"></div>
+    <script src="/js/form.js"> </script>
   </body>
-  <script type="text/javascript">
 
-    const root = document.getElementById('root');
-    const API_URL = 'http://localhost:3000/api/todos';
-    const API_URL_INDEX = 'http://localhost:3000/api/todos/'
-
-    const formComponent =() => {
-      return `
-              <h1>My todos</h1>
-              <input type='text' id='addInput'>
-              <button id='addB' onclick='add()'>Add</button>
-            `
-    }
-    const add = () =>{
-      const text = document.getElementById('addInput').value;
-      fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text }),
-      })
-      .then(getdata());
-    }
-    const getdata = () => {
-      fetch(API_URL)
-      .then((resp)=> resp.json())
-      .then(data => {
-        root.innerHTML = formComponent();
-        root.innerHTML += makeListComponent(data);
-      })
-    }
-
-    const makeListComponent = (data) => {
-      if(data){
-        return `
-          <ul>
-            ${data.map((item, index) =>
-              `<li>${item}</li>
-              <button onclick='edit(this, ${index})'>Edit</button>
-              <button onclick='deleteTodo(this, ${index})'>Delete</button>
-              `
-            ).join('')
-          }
-          </ul>
-        `
-      }
-    }
-    const edit = (e, index) => {
-       document.getElementById('addInput').value = e.previousSibling.previousSibling.innerHTML;
-       document.getElementById('addB').innerHTML = 'Update';
-       document.getElementById('addB').onclick = () => update(index);
-    }
-    const update = (index) =>{
-      const value = document.getElementById('addInput').value;
-      fetch(API_URL_INDEX+index, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ value, id:index }),
-        })
-        .then(getdata());
-        document.getElementById('addB').innerHTML = 'Add';
-        document.getElementById('addB').onclick = () => add();
-    }
-    const deleteTodo = (e, index) =>{
-      fetch(API_URL_INDEX+index,{
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id:index }),
-        })
-        .then(getdata());
-    }
-    getdata();
-
-  </script>
 </html>

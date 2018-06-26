@@ -1,27 +1,23 @@
+const db = require('../db.js');
+
 const todo = {};
 module.exports = todo;
-
-const arrayOfTodo = [];
 
 todo.renderPage = (request, h) => h.file('./form.html');
 
 todo.add = (request) => {
   const { text } = request.payload;
-  arrayOfTodo.push(text);
-  return arrayOfTodo;
+  db.addTodo(text);
 };
 
-todo.getTodos = () => arrayOfTodo;
+todo.getTodos = () => db.getTodos();
 
 todo.update = (request) => {
   const { id, value } = request.payload;
-  arrayOfTodo[id] = value;
-  return 'updated';
+  db.update(id, value);
 };
 
 todo.delete = (request) => {
   const { id } = request.payload;
-  delete arrayOfTodo[id];
-  arrayOfTodo.splice(id, 1);
-  return 'deleted';
+  db.delete(id);
 };

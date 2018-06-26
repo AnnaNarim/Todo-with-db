@@ -13,6 +13,7 @@
     "hapi-swagger": "^9.1.1",
     "inert": "^5.1.0",
     "node": "^10.4.1",
+    "pg": "^7.4.3",
     "vision": "^5.3.3"
   },
   "devDependencies": {

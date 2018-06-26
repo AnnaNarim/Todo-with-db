@@ -12,6 +12,22 @@ routes.push({
     description: 'Page to render form.html',
   },
 });
+
+routes.push({
+  method: 'GET',
+  path: '/js/{name}',
+  handler:
+  {
+    directory: {
+      path: 'js',
+    },
+  },
+  config: {
+    tags: ['api'],
+    description: 'Page to render form.js',
+  },
+});
+
 routes.push({
   method: 'POST',
   path: '/api/todos',
@@ -48,6 +64,6 @@ routes.push({
   handler: Handlers.delete,
   config: {
     tags: ['api'],
-    description: 'delete todo at given index',
+    description: 'delete todo at given index (change active to 0)',
   },
 });

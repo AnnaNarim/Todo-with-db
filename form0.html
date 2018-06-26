@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Todo List</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script tyoe="text/javascript" src=''
+  <script type="text/javascript">
+    const root = document.getElementById('root');
+    const API_URL = "http://localhost:3000/api/todos/"
+
+  //  const list = ['one', 'two', 'three'];
+    const formComponent =() =>{
+      return   `<h1>My todos</h1>
+        <input type='text' name='addInput'>
+        <button type='submit' onclick='add()'>Add</button>`
+    }
+    const add = () =>{
+      const text = document.getElementById('addInput');
+      fetch(API_URL, {
+        method: 'POST',
+        body: { text },
+      })
+      .then(()=>{})
+    }
+    // const listComponent = () => {
+    //   return `
+    //   <ul>
+    //     ${list.map((item) => `
+    //       <li>${item}</li>
+    //       `).join('')}
+    //   </ul>
+    //   `
+    // }
+
+    // const add = () => {
+    //   const text = document.getElementById('addField');
+    //   fetch(API_URL, {
+    //     method: 'POST',
+    //     body: {
+    //       text
+    //     }
+    //   })
+    //     .then(() => render())
+    // }
+    //
+    // const rootComponent = () => {
+    //   return `
+    //   <h1>THIS IS MY PAGE HEADER</h1>
+    //   ${listComponent()}
+    //   <h2>THIS IS ENDING HEADER</h2>
+    //   `
+    // }
+    //
+    // const render = () => {
+    //   root.innerHTML = rootComponent();
+    //   // fetch(API_URL)
+    //   //   .then((data) => {
+    //   //     root.innerHTML = rootComponent(data);
+    //   //   })
+    // }
+    //
+    // render();
+    const render = () => {
+      root.innerHTML = formComponent();
+    }
+    render();
+
+  </script>
+</html>
